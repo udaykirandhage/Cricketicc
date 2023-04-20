@@ -3,14 +3,31 @@ import pandas as pd
 import lxml
 from PIL import Image
 from urllib.request import Request,urlopen
+from streamlit_option_menu import option_menu
 
 req = Request('https://sports.ndtv.com/cricket/icc-rankings',headers={'User-Agent':'Mozilla/5.0'})
 webpage=urlopen(req)
 data=pd.read_html(webpage,header=0)
 
 
+# Nav bar creation 
+
+selected=option_menu(menu_title=None,options=["Home","Awards","Highlights","Results","Contact-Us"],orientation="horizontal",default_index=0,styles={
+        "container": {"padding": "0!important", "background-color": "#fafafa","width":"100vw"},
+        "icon": {"color": "orange", "font-size": "10px"}, 
+        "nav-link": {"font-size": "15px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"}},)
+
+
+
+
+
+
+
+st.sidebar.title("Use These Below Options To View Your Data")
 menu0=["Male Team","Female Team"]
 d=st.sidebar.selectbox("Select ",menu0)
+
+
 
 
 
@@ -181,6 +198,7 @@ if d=="Female Team":
             st.markdown('Here is your Top 10 Players list in T20')
             menugirls4=["Batting","Bowling","All Rounder"]
             g=st.selectbox("Select The Player Type",menugirls4)
+            st.markdown('___________________________________________________________________________')
             if g=="Batting":
                 df=data3[0]
                 st.dataframe(df)
@@ -205,4 +223,11 @@ if d=="Female Team":
             if g=="Bowling":
                 df=data7[0]
                 st.dataframe(df)
-            
+
+      
+#navbar vertical in side bar
+with st.sidebar:
+    selected=option_menu(menu_title=None,options=["Store","Faqs","News","Donate"],orientation="vertical",default_index=0,styles={
+        "container": {"padding": "0!important", "background-color": "#fafafa","width":"100vw"},
+        "icon": {"color": "orange", "font-size": "10px"}, 
+        "nav-link": {"font-size": "15px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"}},)
