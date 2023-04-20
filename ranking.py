@@ -9,6 +9,13 @@ webpage=urlopen(req)
 data=pd.read_html(webpage,header=0)
 
 
+menu0=["Male Team","Female Team"]
+d=st.sidebar.selectbox("Select ",menu0)
+
+
+
+
+
 image = Image.open('ICC.jpg')
 st.image(image, width=300)
 st.title('ICC Ranking')
@@ -20,32 +27,32 @@ st.markdown('This app Shows the Ranking of ICC ')
 expander_bar = st.expander('About')
 expander_bar.markdown("""
 * **Made By:** <MD Uday Kiran , Vasihnavi,Vamshi,Nandhini>
-* **Data source:** [NDTv](https://sports.ndtv.com/cricket/icc-rankings).
+* **Data source:** [NDTv , Icc Cricket](https://sports.ndtv.com/cricket/icc-rankings).
 """)
-
-menu1=["Player","Team"]
-a=st.sidebar.selectbox("Select ",menu1)
-if a=="Team":
-    menu2=["Test","ODI","T20"]
-    b=st.sidebar.selectbox("Match Type",menu2)
-    st.markdown('Select the Match Type From The Select Box')
-    st.markdown('___________________________________________________________________________')
-    if b=="Test":
-        st.markdown('Here is The data for You about The Test Matches That went On ')
-        df=data[0]
-        st.dataframe(df)
-    #style.set_properties(**{'background-color':'black','color':'white'})
-    if b=="ODI":
-        st.markdown('Here is The data for You about The ODI Matches That went On ')
-        df=data[4]
-        st.dataframe(df)
-    if b=="T20":
-        st.markdown('Here is The data for You about The T20 Matches That went On ')
-        df=data[8]
-        st.dataframe(df)
-if a=="Player":
-    menu3=["Test","ODI","T20"]
-    b=st.sidebar.selectbox("Select Match Type",menu3)
+if d=="Male Team":
+    menu1=["Player","Team"]
+    a=st.sidebar.selectbox("Select ",menu1)
+    if a=="Team":
+        menu2=["Test","ODI","T20"]
+        b=st.sidebar.selectbox("Match Type",menu2)
+        st.markdown('Select the Match Type From The Select Box')
+        st.markdown('___________________________________________________________________________')
+        if b=="Test":
+            st.markdown('Here is The data for You about The Test Matches That went On ')
+            df=data[0]
+            st.dataframe(df)
+        #style.set_properties(**{'background-color':'black','color':'white'})
+        if b=="ODI":
+            st.markdown('Here is The data for You about The ODI Matches That went On ')
+            df=data[4]
+            st.dataframe(df)
+        if b=="T20":
+            st.markdown('Here is The data for You about The T20 Matches That went On ')
+            df=data[8]
+            st.dataframe(df)
+    if a=="Player":
+        menu3=["Test","ODI","T20"]
+        b=st.sidebar.selectbox("Select Match Type",menu3)
     
     if b=="Test":
         image = Image.open('test.jpg')
@@ -92,3 +99,110 @@ if a=="Player":
         if c=="Bowling":
             df=data[11]
             st.dataframe(df)
+req2= Request('https://www.icc-cricket.com/rankings/womens/team-rankings/odi',headers={'User-Agent':'Mozilla/5.0'})
+webpage=urlopen(req2)
+data1=pd.read_html(webpage,header=0)
+
+req3= Request('https://www.icc-cricket.com/rankings/womens/team-rankings/t20i',headers={'User-Agent':'Mozilla/5.0'})
+webpage2=urlopen(req3)
+data2=pd.read_html(webpage2,header=0)
+
+
+
+
+
+
+
+
+
+req4= Request('https://www.icc-cricket.com/rankings/womens/player-rankings/odi/batting',headers={'User-Agent':'Mozilla/5.0'})
+webpage3=urlopen(req4)
+data3=pd.read_html(webpage3,header=0)
+
+req5= Request('https://www.icc-cricket.com/rankings/womens/player-rankings/odi/bowling',headers={'User-Agent':'Mozilla/5.0'})
+webpage4=urlopen(req5)
+data4=pd.read_html(webpage4,header=0)
+
+req6= Request('https://www.icc-cricket.com/rankings/womens/player-rankings/odi/all-rounder',headers={'User-Agent':'Mozilla/5.0'})
+webpage5=urlopen(req6)
+data5=pd.read_html(webpage5,header=0)
+
+
+#Iam scrapping the for T20 womens here from ICC cricket
+
+req7= Request('https://www.icc-cricket.com/rankings/womens/player-rankings/t20i/batting',headers={'User-Agent':'Mozilla/5.0'})
+webpage6=urlopen(req7)
+data6=pd.read_html(webpage6,header=0)
+
+req8= Request('https://www.icc-cricket.com/rankings/womens/player-rankings/t20i/bowling',headers={'User-Agent':'Mozilla/5.0'})
+webpage7=urlopen(req8)
+data7=pd.read_html(webpage7,header=0)
+
+req9= Request('https://www.icc-cricket.com/rankings/womens/player-rankings/odi/all-rounder',headers={'User-Agent':'Mozilla/5.0'})
+webpage8=urlopen(req9)
+data8=pd.read_html(webpage8,header=0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if d=="Female Team":
+    menugirls=["Player","Team"]
+    e=st.sidebar.selectbox("Select ",menugirls)
+    if e=="Team":
+        menugirls2=["ODI","T20"]
+        f=st.sidebar.selectbox("Match Type",menugirls2)
+        st.markdown('Select the Match Type From The Select Box')
+        st.markdown('___________________________________________________________________________')
+        if f=="T20":
+            st.markdown('Here is The data for You about The Test Matches That went On ')
+            df=data2[0]
+            st.dataframe(df)
+        if f=="ODI":
+            st.markdown('Here is The data for You about The ODI Matches That went On ')
+            df=data1[0]
+            st.dataframe(df)
+    if e=="Player":
+        menugirls3=["ODI","T20"]
+        f=st.sidebar.selectbox("Select Match Type",menugirls3)
+        if f=="ODI":
+            image = Image.open('odi.jpg')
+            st.image(image, width=80)
+            st.markdown('Here is your Top 10 Players list in T20')
+            menugirls4=["Batting","Bowling","All Rounder"]
+            g=st.selectbox("Select The Player Type",menugirls4)
+            if g=="Batting":
+                df=data3[0]
+                st.dataframe(df)
+            if g=="All Rounder":
+                df=data5[0]
+                st.dataframe(df)
+            if g=="Bowling":
+                df=data4[0]
+                st.dataframe(df)
+        if f=="T20":
+            image = Image.open('T20.png')
+            st.image(image, width=80)
+            st.markdown('Here is your Top 10 Players list in T20')
+            menugirls4=["Batting","Bowling","All Rounder"]
+            g=st.selectbox("Select The Player Type",menugirls4)
+            if g=="Batting":
+                df=data6[0]
+                st.dataframe(df)
+            if g=="All Rounder":
+                df=data8[0]
+                st.dataframe(df)
+            if g=="Bowling":
+                df=data7[0]
+                st.dataframe(df)
+            
